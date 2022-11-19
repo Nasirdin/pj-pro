@@ -105,7 +105,7 @@ bot.start(async (ctx) => {
     let ok = false;
     const findUser = await checkUser(ok, ctx);
     if (findUser) {
-      ctx.reply(`Я чат-бот #PROJECT21: и я твой персональный помощник на следующие 21-дней`);
+      ctx.reply(`Я чат-бот #PROJECT pro: и я твой персональный помощник на следующие 21-дней`);
       const username = ctx.message.from.username;
       const chatId = ctx.message.chat.id;
       const newUser = {
