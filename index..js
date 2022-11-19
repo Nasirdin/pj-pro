@@ -63,16 +63,43 @@ const checkUser = async (ok, ctx) => {
     return true;
   }
 };
+const COMMANDS = [
+  {
+    command: "start",
+    description: "Перезапустить бота",
+  },
+  {
+    command: "help",
+    description: "Помощь",
+  },
+  {
+    command: "mypoints",
+    description: "Мои баллы",
+  },
+  {
+    command: "checkUsers",
+    description: "Данные участиков",
+  },
+  {
+    command: "checkRegUsers",
+    description: "Список участников",
+  },
+  {
+    command: "delete",
+    description: "Удалить участника",
+  },
+  {
+    command: "deleteReg",
+    description: "Удалить участника из списка",
+  },
+  {
+    command: "add",
+    description: "Добавить участника в список",
+  },
+];
 
-const commands = `
-/start - Перезапустить бота
-/help - Помощь
-/mypoints - Мои баллы
-/allreports - Данные участников
-/delete - Удалить участника
-/deleteofthelist - Удалить участника из списка
-/add - Добавить участника в список
-`;
+module.exports = COMMANDS;
+bot.telegram.setMyCommands(COMMANDS);
 
 const help = `У вас есть доступ только к этим командам -
 /start - Перезапустить бота
@@ -395,7 +422,7 @@ bot.action(`clock`, async (ctx) => {
 // CRON ===============================================
 let textOfTheDay = 15;
 
-cron.schedule("0 20 * * *", async () => {
+cron.schedule("0 40 10 * * *", async () => {
   const timeOut = allUsers.map((element) => {
     const newBonus = {
       userId: element.userId,
