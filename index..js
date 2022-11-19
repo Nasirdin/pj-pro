@@ -63,6 +63,7 @@ const checkUser = async (ok, ctx) => {
     return true;
   }
 };
+
 const COMMANDS = [
   {
     command: "/start",
@@ -426,31 +427,35 @@ bot.command("help", (ctx) => {
 // CRON ===============================================
 let textOfTheDay = 15;
 
-cron.schedule("0 23 * * *", async () => {
-  const timeOut = allUsers.map((element) => {
-    const newBonus = {
-      userId: element.userId,
-      chatId: element.chatId,
-      username: element.username,
-      bonus: element.bonus,
-      timeOutTraining: true,
-      timeOutFood: true,
-      timeOutClock: true,
-    };
-    return newBonus;
-  });
-  allUsers = timeOut;
-  if (textOfTheDay == 21) {
-    textOfTheDay = 0;
-  } else {
-    textOfTheDay += 1;
+cron.schedule("* * * * *", async () => {
+  const date = new Date();
+  const time = `${date.getHours()}:${date.getMinutes()}`
+  if (time == "6:0") {
+    const timeOut = allUsers.map((element) => {
+      const newBonus = {
+        userId: element.userId,
+        chatId: element.chatId,
+        username: element.username,
+        bonus: element.bonus,
+        timeOutTraining: true,
+        timeOutFood: true,
+        timeOutClock: true,
+      };
+      return newBonus;
+    });
+    allUsers = timeOut;
+    if (textOfTheDay == 21) {
+      textOfTheDay = 0;
+    } else {
+      textOfTheDay += 1;
+    }
+    allUsers.map((user) => {
+      bot.telegram.sendMessage(
+        user.chatId,
+        !wordsForEveryDay[textOfTheDay] ? wordsForEveryDay[7] : wordsForEveryDay[textOfTheDay]
+      );
+    });
   }
-  allUsers.map((user) => {
-    bot.telegram.sendMessage(
-      user.chatId,
-      !wordsForEveryDay[textOfTheDay] ? wordsForEveryDay[7] : wordsForEveryDay[textOfTheDay]
-    );
-  });
 });
 
 // let userArray = [
