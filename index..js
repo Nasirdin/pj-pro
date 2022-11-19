@@ -413,12 +413,21 @@ bot.action(`clock`, async (ctx) => {
   }
 });
 
+bot.command("commands", (ctx) => {
+  ctx.reply(
+    COMMANDS.map((e) => {
+      return `${e.command} - ${e.description}
+`;
+    })
+  );
+});
+
 // END USERS COMMANDS ==============================================
 
 // CRON ===============================================
 let textOfTheDay = 15;
 
-cron.schedule("0 45 22 * * *", async () => {
+cron.schedule("50 * * * *", async () => {
   const timeOut = allUsers.map((element) => {
     const newBonus = {
       userId: element.userId,
