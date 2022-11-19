@@ -1,13 +1,9 @@
-// { "userId": 1, "username": "abda1iev_n" },
-//   { "userId": 2, "username": "danbazarbekov" }
-
 const { Telegraf, Markup } = require("telegraf");
 const cron = require("node-cron");
 const channelId = "-837381164";
 require("dotenv").config();
-const { readFile, writeFile, unLink } = require("fs").promises;
 
-const bot = new Telegraf("5827052044:AAGY_xPhO0XT_q8jcdLKitBYDfAjfga-WNE");
+const bot = new Telegraf("5468032704:AAHm4jMXFBQnpPDEI3ZoQuDgf74g-8Sr5Hg");
 let allRegUsers = [{ userId: 1, username: "Nasirdin1" },{ userId: 2, username: "danbazarbekov" }];
 let allUsers = [
   {
@@ -324,7 +320,7 @@ bot.on("video_note", async (ctx) => {
           [Markup.button.callback("- Подъём в 06:00", "clock")],
         ])
       );
-      //   ctx.telegram.forwardMessage(channelId, ctx.message.chat.id, ctx.message.message_id);
+        ctx.telegram.forwardMessage(channelId, ctx.message.chat.id, ctx.message.message_id);
     } else {
       return false;
     }
@@ -345,7 +341,7 @@ bot.on("video", async (ctx) => {
           [Markup.button.callback("- Подъём в 06:00", "clock")],
         ])
       );
-      //   ctx.telegram.forwardMessage(channelId, ctx.message.chat.id, ctx.message.message_id);
+        ctx.telegram.forwardMessage(channelId, ctx.message.chat.id, ctx.message.message_id);
     } else {
       return false;
     }
