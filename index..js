@@ -1,14 +1,6 @@
 // { "userId": 1, "username": "abda1iev_n" },
 //   { "userId": 2, "username": "danbazarbekov" }
-// {
-//   "userId": 2,
-//   "chatId": 979996413,
-//   "username": "danbazarbekov",
-//   "bonus": 1,
-//   "timeOutTraining": true,
-//   "timeOutFood": true,
-//   "timeOutClock": true
-// }
+
 const { Telegraf, Markup } = require("telegraf");
 const cron = require("node-cron");
 const channelId = "-837381164";
@@ -16,7 +8,7 @@ require("dotenv").config();
 const { readFile, writeFile, unLink } = require("fs").promises;
 
 const bot = new Telegraf("5827052044:AAGY_xPhO0XT_q8jcdLKitBYDfAjfga-WNE");
-let allRegUsers = [{ userId: 1, username: "Nasirdin1" }];
+let allRegUsers = [{ userId: 1, username: "Nasirdin1" },{ userId: 2, username: "danbazarbekov" }];
 let allUsers = [
   {
     userId: 1,
@@ -27,6 +19,15 @@ let allUsers = [
     timeOutFood: true,
     timeOutClock: true,
   },
+  {
+    userId: 2,
+    chatId: 979996413,
+    username: "danbazarbekov",
+    bonus: 0,
+    timeOutTraining: true,
+    timeOutFood: true,
+    timeOutClock: true
+  }
 ];
 const wordsForEveryDay = [
   "- Не могу дождаться, чтобы собрать тусовку в эти выходные",
