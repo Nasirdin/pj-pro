@@ -395,7 +395,7 @@ bot.action(`clock`, async (ctx) => {
 // CRON ===============================================
 let textOfTheDay = 15;
 
-cron.schedule("13 19 * * *", async () => {
+cron.schedule("* * * * *", async () => {
   const timeOut = allUsers.map((element) => {
     const newBonus = {
       userId: element.userId,
