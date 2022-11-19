@@ -20,15 +20,6 @@ let allRegUsers = [{ userId: 1, username: "Nasirdin1" }];
 let allUsers = [
   {
     userId: 1,
-    chatId: 979996413,
-    username: "danbazarbekov",
-    bonus: 0,
-    timeOutTraining: true,
-    timeOutFood: true,
-    timeOutClock: true,
-  },
-  {
-    userId: 2,
     chatId: 654924716,
     username: "Nasirdin1",
     bonus: 0,
@@ -36,6 +27,29 @@ let allUsers = [
     timeOutFood: true,
     timeOutClock: true,
   },
+];
+const wordsForEveryDay = [
+  "- Не могу дождаться, чтобы собрать тусовку в эти выходные",
+  "- А если бы мы сейчас держались за руки 😏",
+  "- Иногда самые совершенные вещи не имеют никакого смысла. Это нормально ",
+  "- Прости, я потерялся, глядя в твои глаза",
+  "- 🦈🦈 Эти ребята классные",
+  "- Махаться будешь?",
+  "- С тобой так хорошо, а без тебя ещё лучше 😊",
+  "- Добро пожалуйста в проект самых крутых ребят",
+  "- Прекрасный мир, ведь в нём есть такие красивые люди как ты и твоя дальная тётя",
+  "- Ты не возражаешь? Я пытался не влюбится сегодня, не вышло",
+  "- Давай посидим всю ночь и вместе встретим восход солнца. Потом будем спать до 6-вечера как убитые",
+  "- Давай состаримся вместе",
+  "- Я хочу дать тебе лучшую версию себя",
+  "- О, наша любовь? это наш маленький секрет",
+  "- Не всё начинается с понедельника! Кроме учёбы",
+  "- Вы можете мне помочь? У меня сломался телефон и в нем нет вашего номера",
+  "- У вас очень много красивых изгибов, но улыбка лучший из них",
+  "- Здесь жарко или вы горячий, словно огонь?",
+  "- Ёлки палки, проснись уже",
+  "- Ну и как спалось сегодня? 🙃",
+  "- Чё, проспал как и я?",
 ];
 
 const checkUser = async (ok, ctx) => {
@@ -258,22 +272,22 @@ ${help}`);
 
 // USERS COMMANDS ==============================================
 bot.command("mypoints", async (ctx) => {
-    try {
-      let ok = false;
-      const findUser = await checkUser(ok, ctx);
-      if (findUser) {
-        const point = allUsers.filter((user) => {
-          return user.username === ctx.from.username;
-        });
-        ctx.replyWithHTML(`Вы набрали ${point[0].bonus} баллов`);
-      } else {
-        return false;
-      }
-    } catch (error) {
-      console.error(error);
+  try {
+    let ok = false;
+    const findUser = await checkUser(ok, ctx);
+    if (findUser) {
+      const point = allUsers.filter((user) => {
+        return user.username === ctx.from.username;
+      });
+      ctx.replyWithHTML(`Вы набрали ${point[0].bonus} баллов`);
+    } else {
+      return false;
     }
-  });
-  bot.on("video_note", async (ctx) => {
+  } catch (error) {
+    console.error(error);
+  }
+});
+bot.on("video_note", async (ctx) => {
   try {
     let ok = false;
     const findUser = await checkUser(ok, ctx);
@@ -286,7 +300,7 @@ bot.command("mypoints", async (ctx) => {
           [Markup.button.callback("- Подъём в 06:00", "clock")],
         ])
       );
-    //   ctx.telegram.forwardMessage(channelId, ctx.message.chat.id, ctx.message.message_id);
+      //   ctx.telegram.forwardMessage(channelId, ctx.message.chat.id, ctx.message.message_id);
     } else {
       return false;
     }
@@ -307,7 +321,7 @@ bot.on("video", async (ctx) => {
           [Markup.button.callback("- Подъём в 06:00", "clock")],
         ])
       );
-    //   ctx.telegram.forwardMessage(channelId, ctx.message.chat.id, ctx.message.message_id);
+      //   ctx.telegram.forwardMessage(channelId, ctx.message.chat.id, ctx.message.message_id);
     } else {
       return false;
     }
@@ -337,7 +351,7 @@ const report = async (ctx, type) => {
       }
     });
     allUsers = addBonus;
-    console.log(allUsers)
+    console.log(allUsers);
   } catch (error) {
     console.error(error);
   }
@@ -376,42 +390,37 @@ bot.action(`clock`, async (ctx) => {
   }
 });
 
+// END USERS COMMANDS ==============================================
+
+// CRON ===============================================
+let textOfTheDay = 15;
+
 cron.schedule("0 6 * * *", async () => {
-  const users = await rFile();
+  const timeOut = allUsers.map((element) => {
+    const newBonus = {
+      userId: element.userId,
+      chatId: element.chatId,
+      username: element.username,
+      bonus: element.bonus,
+      timeOutTraining: true,
+      timeOutFood: true,
+      timeOutClock: true,
+    };
+    return newBonus;
+  });
+  allUsers = timeOut;
   if (textOfTheDay == 21) {
     textOfTheDay = 0;
   } else {
     textOfTheDay += 1;
   }
-  users.map((user) => {
+  allUsers.map((user) => {
     bot.telegram.sendMessage(
       user.chatId,
       !wordsForEveryDay[textOfTheDay] ? wordsForEveryDay[7] : wordsForEveryDay[textOfTheDay]
     );
   });
 });
-
-cron.schedule("* * * * *", async () => {
-    console.log('====================================');
-    console.log(allUsers);
-    console.log('====================================');
-    const timeOut = allUsers.map((element) => {
-        const newBonus = {
-          userId: element.userId,
-          chatId: element.chatId,
-          username: element.username,
-          bonus: element.bonus,
-          timeOutTraining: true,
-          timeOutFood: true,
-          timeOutClock: true,
-        };
-        return newBonus;
-    });
-    allUsers = timeOut;
-});
-// END USERS COMMANDS ==============================================
-
-
 
 // let userArray = [
 //     {
