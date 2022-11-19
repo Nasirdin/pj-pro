@@ -65,41 +65,40 @@ const checkUser = async (ok, ctx) => {
 };
 const COMMANDS = [
   {
-    command: "start",
+    command: "/start",
     description: "Перезапустить бота",
   },
   {
-    command: "help",
+    command: "/help",
     description: "Помощь",
   },
   {
-    command: "mypoints",
+    command: "/mypoints",
     description: "Мои баллы",
   },
   {
-    command: "checkUsers",
+    command: "/checkUsers",
     description: "Данные участиков",
   },
   {
-    command: "checkRegUsers",
+    command: "/checkRegUsers",
     description: "Список участников",
   },
   {
-    command: "delete",
+    command: "/delete",
     description: "Удалить участника",
   },
   {
-    command: "deleteReg",
+    command: "/deleteReg",
     description: "Удалить участника из списка",
   },
   {
-    command: "add",
+    command: "/add",
     description: "Добавить участника в список",
   },
 ];
 const help = `У вас есть доступ только к этим командам -
 /start - Перезапустить бота
-/help - Помощь
 /mypoints - Мои баллы
 `;
 
@@ -412,13 +411,13 @@ bot.action(`clock`, async (ctx) => {
     report(ctx, type);
   }
 });
-
-bot.command("commands", (ctx) => {
+bot.command("help", (ctx) => {
+  const res = COMMANDS.map((e) => {
+    return `${e.command} - ${e.description}`;
+  });
   ctx.reply(
-    COMMANDS.map((e) => {
-      return `${e.command} - ${e.description}
-`;
-    })
+    res.join(`
+`)
   );
 });
 
@@ -427,7 +426,7 @@ bot.command("commands", (ctx) => {
 // CRON ===============================================
 let textOfTheDay = 15;
 
-cron.schedule("50 * * * *", async () => {
+cron.schedule("0 23 * * *", async () => {
   const timeOut = allUsers.map((element) => {
     const newBonus = {
       userId: element.userId,
