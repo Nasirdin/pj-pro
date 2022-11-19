@@ -97,10 +97,6 @@ const COMMANDS = [
     description: "Добавить участника в список",
   },
 ];
-
-module.exports = COMMANDS;
-bot.telegram.setMyCommands(COMMANDS);
-
 const help = `У вас есть доступ только к этим командам -
 /start - Перезапустить бота
 /help - Помощь
