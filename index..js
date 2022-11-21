@@ -408,7 +408,7 @@ bot.command("help", (ctx) => {
 // CRON ===============================================
 let textOfTheDay = 15;
 
-cron.schedule("0 16 15 * * *", async () => {
+cron.schedule("0 0 0 * * *", async () => {
   const timeOut = allUsers.map((element) => {
     const newBonus = {
       userId: element.userId,
