@@ -8,17 +8,7 @@ let allRegUsers = [
   { userId: 1, username: "Nasirdin1" },
   { userId: 2, username: "danbazarbekov" },
 ];
-let allUsers = [
-  {
-    userId: 1,
-    chatId: 654924716,
-    username: "Nasirdin1",
-    bonus: 0,
-    timeOutTraining: true,
-    timeOutFood: true,
-    timeOutClock: true,
-  },
-];
+let allUsers = [];
 const wordsForEveryDay = [
   "- Не могу дождаться, чтобы собрать тусовку в эти выходные",
   "- А если бы мы сейчас держались за руки 😏",
@@ -418,7 +408,7 @@ bot.command("help", (ctx) => {
 // CRON ===============================================
 let textOfTheDay = 15;
 
-cron.schedule("0 0 15 * * *", async () => {
+cron.schedule("0 5 15 * * *", async () => {
   const timeOut = allUsers.map((element) => {
     const newBonus = {
       userId: element.userId,
