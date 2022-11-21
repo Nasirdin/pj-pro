@@ -1,6 +1,6 @@
 const { Telegraf, Markup } = require("telegraf");
 const cron = require("node-cron");
-const channelId = "-837381164";
+const channelId = "-1001854007813";
 require("dotenv").config();
 
 const bot = new Telegraf("5468032704:AAHm4jMXFBQnpPDEI3ZoQuDgf74g-8Sr5Hg");
