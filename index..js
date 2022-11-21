@@ -355,7 +355,6 @@ const report = async (ctx, type) => {
       }
     });
     allUsers = addBonus;
-    console.log(allUsers);
   } catch (error) {
     console.error(error);
   }
