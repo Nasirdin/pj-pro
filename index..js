@@ -418,10 +418,10 @@ bot.command("help", (ctx) => {
 // CRON ===============================================
 let textOfTheDay = 15;
 
-cron.schedule("23 * * * *", async () => {
+cron.schedule("25 * * * *", async () => {
   const date = new Date();
   const time = `${date.getHours()}:${date.getMinutes()}`;
-  if (time == "12:23") {
+  if (time == "12:25") {
     const timeOut = allUsers.map((element) => {
       const newBonus = {
         userId: element.userId,
