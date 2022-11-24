@@ -7,8 +7,11 @@ const bot = new Telegraf("5468032704:AAHm4jMXFBQnpPDEI3ZoQuDgf74g-8Sr5Hg");
 let allRegUsers = [
   { userId: 1, username: "Nasirdin1" },
   { userId: 2, username: "danbazarbekov" },
+  { userId: 3, username: "satymkulow" },
+  { userId: 4, username: "aktaann" },
 ];
-let allUsers = [];
+let allUsers = [
+];
 const wordsForEveryDay = [
   "- Не могу дождаться, чтобы собрать тусовку в эти выходные",
   "- А если бы мы сейчас держались за руки 😏",
@@ -89,7 +92,7 @@ bot.start(async (ctx) => {
     let ok = false;
     const findUser = await checkUser(ok, ctx);
     if (findUser) {
-      ctx.reply(`Я чат-бот #PROJECT pro: и я твой персональный помощник на следующие 21-дней`);
+      ctx.reply(`Я чат-бот #PROJECT PRO: и я твой персональный помощник на следующие дни`);
       const username = ctx.message.from.username;
       const chatId = ctx.message.chat.id;
       const newUser = {
@@ -405,7 +408,7 @@ bot.command("help", (ctx) => {
 // END USERS COMMANDS ==============================================
 
 // CRON ===============================================
-let textOfTheDay = 21;
+let textOfTheDay = 3;
 
 cron.schedule("0 0 0 * * *", async () => {
   const timeOut = allUsers.map((element) => {
