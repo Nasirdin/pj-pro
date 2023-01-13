@@ -5,11 +5,28 @@ require("dotenv").config();
 
 const bot = new Telegraf("5962910623:AAEFxAKXgf2T_8AOcp3hmkHgxWR4YJAi4jQ");
 let allRegUsers = [
-  { userId: 1, username: "Nasirdin1" },
-  { userId: 2, username: "danbazarbekov" },
-  { userId: 3, username: "satymkulow" },
-  { userId: 4, username: "aktaann" },
+  { userId: 1, username: "danbazarbekov" },
+  { userId: 2, username: "Reable16" },
+  { userId: 3, username: "Nurtilek" },
+  { userId: 4, username: "Aknazarr" },
+  { userId: 5, username: "nursa_tn" },
+  { userId: 6, username: "ulookbek" },
+  { userId: 7, username: "azimzki" },
+  { userId: 8, username: "Temka" },
+  { userId: 9, username: "dan4ik_ky" },
+  { userId: 10, username: "kane2701" },
+  { userId: 12, username: "Nurik" },
+  { userId: 13, username: "Abdusomadblog7" },
+  { userId: 14, username: "blade00" },
+  { userId: 15, username: "Narboto" },
+  { userId: 16, username: "spader1maan" },
+  { userId: 17, username: "Marat0vi" },
+  { userId: 18, username: "mamataliev11" },
+  { userId: 19, username: "seidaliev" },
+  { userId: 20, username: "yolikmak" },
+  { userId: 21, username: "AzhimamatovAr" },
 ];
+
 let allUsers = [
 ];
 const wordsForEveryDay = [
