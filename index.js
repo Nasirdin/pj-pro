@@ -15,6 +15,7 @@ let allRegUsers = [
   { userId: 8, username: "Temka" },
   { userId: 9, username: "dan4ik_ky" },
   { userId: 10, username: "kane2701" },
+  { userId: 11, username: "abdirov_era" },
   { userId: 12, username: "Nurik" },
   { userId: 13, username: "Abdusomadblog7" },
   { userId: 14, username: "blade00" },
