@@ -3,7 +3,7 @@ const cron = require("node-cron");
 const channelId = "-1001854007813";
 require("dotenv").config();
 
-const bot = new Telegraf("5468032704:AAHm4jMXFBQnpPDEI3ZoQuDgf74g-8Sr5Hg");
+const bot = new Telegraf("5962910623:AAEFxAKXgf2T_8AOcp3hmkHgxWR4YJAi4jQ");
 let allRegUsers = [
   { userId: 1, username: "Nasirdin1" },
   { userId: 2, username: "danbazarbekov" },
@@ -41,7 +41,7 @@ const checkUser = async (ok, ctx) => {
     return ctx.from.username === user.username;
   });
   if (!findUser[0]) {
-    ctx.reply("Чтобы стать участников проекта #PROJECT21 обращайтесь к @danbazarbekov");
+    ctx.reply("Чтобы стать участников проекта #PROJECT50 обращайтесь к @danbazarbekov");
     return false;
   } else {
     return true;
@@ -92,7 +92,7 @@ bot.start(async (ctx) => {
     let ok = false;
     const findUser = await checkUser(ok, ctx);
     if (findUser) {
-      ctx.reply(`Я чат-бот #PROJECT PRO: и я твой персональный помощник на следующие дни`);
+      ctx.reply(`Я чат-бот #PROJECT50: и я твой персональный помощник на следующие дни`);
       const username = ctx.message.from.username;
       const chatId = ctx.message.chat.id;
       const newUser = {
