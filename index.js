@@ -26,10 +26,11 @@ let allRegUsers = [
   { userId: 19, username: "seidaliev" },
   { userId: 20, username: "yolikmak" },
   { userId: 21, username: "AzhimamatovAr" },
+  { userId: 22, username: "nu4asssyl" },
+  { userId: 23, username: "aktaann" },
 ];
 
-let allUsers = [
-];
+let allUsers = [];
 const wordsForEveryDay = [
   "- Не могу дождаться, чтобы собрать тусовку в эти выходные",
   "- А если бы мы сейчас держались за руки 😏",
@@ -59,7 +60,9 @@ const checkUser = async (ok, ctx) => {
     return ctx.from.username === user.username;
   });
   if (!findUser[0]) {
-    ctx.reply("Чтобы стать участников проекта #PROJECT50 обращайтесь к @danbazarbekov");
+    ctx.reply(
+      "Чтобы стать участников проекта #PROJECT50 обращайтесь к @danbazarbekov"
+    );
     return false;
   } else {
     return true;
@@ -110,7 +113,9 @@ bot.start(async (ctx) => {
     let ok = false;
     const findUser = await checkUser(ok, ctx);
     if (findUser) {
-      ctx.reply(`Я чат-бот #PROJECT50: и я твой персональный помощник на следующие дни`);
+      ctx.reply(
+        `Я чат-бот #PROJECT50: и я твой персональный помощник на следующие дни`
+      );
       const username = ctx.message.from.username;
       const chatId = ctx.message.chat.id;
       const newUser = {
@@ -152,7 +157,10 @@ bot.start(async (ctx) => {
 // ADD and DELETE ==============================================
 bot.command("add", async (ctx) => {
   try {
-    if (ctx.from.username === "danbazarbekov" || ctx.from.username === "Nasirdin1") {
+    if (
+      ctx.from.username === "danbazarbekov" ||
+      ctx.from.username === "Nasirdin1"
+    ) {
       const message = ctx.message.text.split(" ");
       if (message.length <= 1) {
         ctx.reply(`Проверьте правильность написания.
@@ -193,7 +201,10 @@ ${help}`);
 });
 bot.command("delete", async (ctx) => {
   try {
-    if (ctx.from.username === "danbazarbekov" || ctx.from.username === "Nasirdin1") {
+    if (
+      ctx.from.username === "danbazarbekov" ||
+      ctx.from.username === "Nasirdin1"
+    ) {
       const message = ctx.message.text.split(" ");
       const deleteUser = allUsers.filter((user) => {
         return `${user.username}` !== message[1];
@@ -222,7 +233,10 @@ ${help}`);
 });
 bot.command("deleteReg", async (ctx) => {
   try {
-    if (ctx.from.username === "danbazarbekov" || ctx.from.username === "Nasirdin1") {
+    if (
+      ctx.from.username === "danbazarbekov" ||
+      ctx.from.username === "Nasirdin1"
+    ) {
       const message = ctx.message.text.split(" ");
       const deleteUser = allRegUsers.filter((user) => {
         return `${user.username}` !== message[1];
@@ -254,7 +268,10 @@ ${help}`);
 // CHECK USERS =================================================
 bot.command("checkRegUsers", (ctx) => {
   try {
-    if (ctx.from.username === "danbazarbekov" || ctx.from.username === "Nasirdin1") {
+    if (
+      ctx.from.username === "danbazarbekov" ||
+      ctx.from.username === "Nasirdin1"
+    ) {
       const res = allRegUsers.map((user) => {
         return `${user.userId} : @${user.username}`;
       });
@@ -275,7 +292,10 @@ ${res.join(`
 });
 bot.command("checkUsers", (ctx) => {
   try {
-    if (ctx.from.username === "danbazarbekov" || ctx.from.username === "Nasirdin1") {
+    if (
+      ctx.from.username === "danbazarbekov" ||
+      ctx.from.username === "Nasirdin1"
+    ) {
       const a = allUsers.map((e) => {
         return `${e.userId}: @${e.username} - ${e.bonus} балл`;
       });
@@ -304,7 +324,11 @@ bot.command("mypoints", async (ctx) => {
       const point = allUsers.filter((user) => {
         return user.username === ctx.from.username;
       });
-      ctx.replyWithHTML(`Вы набрали ${point[0].bonus} баллов`);
+      if (point[0].bonus === undefined) {
+        ctx.replyWithHTML(`Упс! Перезапустите бот /start`);
+      } else {
+        ctx.replyWithHTML(`Вы набрали ${point[0].bonus} баллов`);
+      }
     } else {
       return false;
     }
@@ -325,7 +349,11 @@ bot.on("video_note", async (ctx) => {
           [Markup.button.callback("- Подъём в 06:00", "clock")],
         ])
       );
-      ctx.telegram.forwardMessage(channelId, ctx.message.chat.id, ctx.message.message_id);
+      ctx.telegram.forwardMessage(
+        channelId,
+        ctx.message.chat.id,
+        ctx.message.message_id
+      );
     } else {
       return false;
     }
@@ -346,7 +374,11 @@ bot.on("video", async (ctx) => {
           [Markup.button.callback("- Подъём в 06:00", "clock")],
         ])
       );
-      ctx.telegram.forwardMessage(channelId, ctx.message.chat.id, ctx.message.message_id);
+      ctx.telegram.forwardMessage(
+        channelId,
+        ctx.message.chat.id,
+        ctx.message.message_id
+      );
     } else {
       return false;
     }
@@ -450,7 +482,9 @@ cron.schedule("0 0 0 * * *", async () => {
   allUsers.map((user) => {
     bot.telegram.sendMessage(
       user.chatId,
-      !wordsForEveryDay[textOfTheDay] ? wordsForEveryDay[7] : wordsForEveryDay[textOfTheDay]
+      !wordsForEveryDay[textOfTheDay]
+        ? wordsForEveryDay[7]
+        : wordsForEveryDay[textOfTheDay]
     );
   });
 });
