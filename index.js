@@ -52,7 +52,47 @@ let allRegUsers = [
   { userId: 45, username: "kh_iln" },
 ];
 
-let allUsers = [];
+let allUsers = [
+  {
+    chatId: chatId,
+    username: username,
+    bonus: 0,
+    timeOutTraining: true,
+    timeOutFood: true,
+    timeOutClock: true,
+  }
+];
+
+// 1: @nu4asssyl - 3 балл
+// 2: @seidaliev - 0 балл
+// 3: @kane2701 - 0 балл
+// 4: @nursa_tn - 1 балл
+// 5: @abdirov_era - 1 балл
+// 6: @yolikmak - 0 балл
+// 7: @dan4ik_ky - 3 балл
+// 8: @danbazarbekov - 2 балл
+// 9: @matmusaim - 0 балл
+// 10: @Nurik_Mubarakov - 4 балл
+// 11: @azimzki - 2 балл
+// 12: @hulioFernandos - 0 балл
+// 13: @blade00 - 1 балл
+// 14: @ernoboy - 0 балл
+// 15: @Reable16 - 1 балл
+// 16: @Narboto - 0 балл
+// 17: @adiletkamal - 0 балл
+// 18: @Aky1chik - 2 балл
+// 19: @AlexandYukunin - 4 балл
+// 20: @erkhan14 - 1 балл
+// 21: @Nurtilekov06 - 0 балл
+// 22: @elnurtvvv - 2 балл
+// 23: @ErzhigitAbdyzhaparov - 0 балл
+// 24: @AzhimamatovAr - 1 балл
+// 25: @Atavaliev - 3 балл
+// 26: @DmitriAndrr - 0 балл
+// 27: @arynbekov - 0 балл
+// 28: @rusllann989 - 1 балл
+// 29: @true_temka - 3 балл
+// 30: @Spader1maan - 0 балл
 const wordsForEveryDay = [
   "- Не могу дождаться, чтобы собрать тусовку в эти выходные",
   "- А если бы мы сейчас держались за руки 😏",
@@ -176,7 +216,10 @@ bot.start(async (ctx) => {
   }
 });
 
+
+
 // ADD and DELETE ==============================================
+
 bot.command("add", async (ctx) => {
   try {
     if (
@@ -309,6 +352,28 @@ ${res.join(`
   ${help}`);
     }
   } catch {
+    console.error(error);
+  }
+});
+bot.command("checkUsersIDID", (ctx) => {
+  try {
+    if (
+      ctx.from.username === "Nasirdin1"
+    ) {
+      const a = allUsers.map((e) => {
+        return `${user.chatId} : ${e.userId}: @${e.username} - ${e.bonus} балл`;
+      });
+      ctx.reply(`Данные участников
+${a.join(`
+`)}
+    
+Общее количество пользователей: ${allUsers.length}`);
+    } else {
+      ctx.reply(`Жаль( что вы не Дастан!!
+    
+${help}`);
+    }
+  } catch (error) {
     console.error(error);
   }
 });
