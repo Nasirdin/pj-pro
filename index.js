@@ -50,7 +50,6 @@ let allRegUsers = [
   { userId: 43, username: "masterminddaykg" },
   { userId: 44, username: "Spader1maan" },
   { userId: 45, username: "kh_iln" },
-  { userId: 45, username: "Nasirdin1" },
 ];
 
 let allUsers = [];
