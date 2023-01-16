@@ -50,10 +50,10 @@ let allRegUsers = [
   { userId: 43, username: "masterminddaykg" },
   { userId: 44, username: "Spader1maan" },
   { userId: 45, username: "kh_iln" },
+  { userId: 45, username: "Nasirdin1" },
 ];
 
-let allUsers = [
-];
+let allUsers = [];
 
 // 1: @nu4asssyl - 3 балл
 // 2: @seidaliev - 0 балл
@@ -208,8 +208,6 @@ bot.start(async (ctx) => {
   }
 });
 
-
-
 // ADD and DELETE ==============================================
 
 bot.command("add", async (ctx) => {
@@ -347,28 +345,28 @@ ${res.join(`
     console.error(error);
   }
 });
-bot.command("checkUsersIDID", (ctx) => {
-  try {
-    if (
-      ctx.from.username === "Nasirdin1"
-    ) {
-      const a = allUsers.map((e) => {
-        return `${user.chatId} : ${e.userId}: @${e.username} - ${e.bonus} балл`;
-      });
-      ctx.reply(`Данные участников
-${a.join(`
-`)}
-    
-Общее количество пользователей: ${allUsers.length}`);
-    } else {
-      ctx.reply(`Жаль( что вы не Дастан!!
-    
-${help}`);
-    }
-  } catch (error) {
-    console.error(error);
-  }
-});
+// bot.command("checkUsersIDID", (ctx) => {
+//   try {
+//     if (
+//       ctx.from.username === "Nasirdin1"
+//     ) {
+//       const a = allUsers.map((e) => {
+//         return `${user.chatId} : ${e.userId}: @${e.username} - ${e.bonus} балл`;
+//       });
+//       ctx.reply(`Данные участников
+// ${a.join(`
+// `)}
+
+// Общее количество пользователей: ${allUsers.length}`);
+//     } else {
+//       ctx.reply(`Жаль( что вы не Дастан!!
+
+// ${help}`);
+//     }
+//   } catch (error) {
+//     console.error(error);
+//   }
+// });
 bot.command("checkUsers", (ctx) => {
   try {
     if (
@@ -376,7 +374,7 @@ bot.command("checkUsers", (ctx) => {
       ctx.from.username === "Nasirdin1"
     ) {
       const a = allUsers.map((e) => {
-        return `${e.userId}: @${e.username} - ${e.bonus} балл`;
+        return `${e.userId}: ${e.chatId} || @${e.username} - ${e.bonus} балл`;
       });
       ctx.reply(`Данные участников
 ${a.join(`
@@ -403,10 +401,12 @@ bot.command("mypoints", async (ctx) => {
       const point = allUsers.filter((user) => {
         return user.username === ctx.from.username;
       });
-      if (point[0].bonus === undefined) {
+      if (point.length === 0) {
         ctx.replyWithHTML(`Упс! Перезапустите бот /start`);
-      } else {
+      } else if (point.length === 1) {
         ctx.replyWithHTML(`Вы набрали ${point[0].bonus} баллов`);
+      } else {
+        ctx.replyWithHTML(`Упс! Перезапустите бот /start`);
       }
     } else {
       return false;
@@ -495,7 +495,9 @@ bot.action(`training`, async (ctx) => {
   const userArray = allUsers.filter((e) => {
     return e.username === ctx.from.username;
   });
-  if (!userArray[0].timeOutTraining) {
+  if (userArray.length === 0) {
+    ctx.replyWithHTML(`Упс! Перезапустите бот /start`);
+  } else if (!userArray[0].timeOutTraining) {
     await ctx.replyWithHTML("Вы уже отправили отчет о тренировке!");
   } else {
     let type = ctx.update.callback_query.data;
@@ -506,7 +508,9 @@ bot.action(`food`, async (ctx) => {
   const userArray = allUsers.filter((e) => {
     return e.username === ctx.from.username;
   });
-  if (!userArray[0].timeOutFood) {
+  if (userArray.length === 0) {
+    ctx.replyWithHTML(`Упс! Перезапустите бот /start`);
+  } else if (!userArray[0].timeOutFood) {
     await ctx.replyWithHTML("Вы уже отправили отчет!");
   } else {
     let type = ctx.update.callback_query.data;
@@ -517,7 +521,9 @@ bot.action(`clock`, async (ctx) => {
   const userArray = allUsers.filter((e) => {
     return e.username === ctx.from.username;
   });
-  if (!userArray[0].timeOutClock) {
+  if (userArray.length === 0) {
+    ctx.replyWithHTML(`Упс! Перезапустите бот /start`);
+  } else if (!userArray[0].timeOutClock) {
     await ctx.replyWithHTML("Вы уже отправили отчет");
   } else {
     let type = ctx.update.callback_query.data;
@@ -537,7 +543,7 @@ bot.command("help", (ctx) => {
 // END USERS COMMANDS ==============================================
 
 // CRON ===============================================
-let textOfTheDay = 3;
+let textOfTheDay = 6;
 
 cron.schedule("0 0 0 * * *", async () => {
   const timeOut = allUsers.map((element) => {
