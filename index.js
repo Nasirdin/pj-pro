@@ -53,14 +53,6 @@ let allRegUsers = [
 ];
 
 let allUsers = [
-  {
-    chatId: chatId,
-    username: username,
-    bonus: 0,
-    timeOutTraining: true,
-    timeOutFood: true,
-    timeOutClock: true,
-  }
 ];
 
 // 1: @nu4asssyl - 3 балл
